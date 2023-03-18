@@ -13,17 +13,16 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/auth/login',
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`,
         {
           username,
           password,
         }
       )
 
-      const token = response.data.token
-      const role = response.data.role
+      const { token, role } = response.data
       localStorage.setItem('token', token)
-      localStorage.setItem('role', role)
+      localStorage.setItem('role', role) // Guarda el rol en el almacenamiento local
       navigate('/production-flow')
     } catch (err) {
       setError('Usuario o contraseña incorrectos')
