@@ -10,11 +10,6 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.decode(token, secret)
-
-    if (decoded.username !== 'skb') {
-      return res.status(401).json({ error: 'Unauthorized' })
-    }
-
     req.user = decoded
     next()
   } catch (err) {

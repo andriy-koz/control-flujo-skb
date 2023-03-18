@@ -21,9 +21,10 @@ const Login = () => {
       )
 
       const token = response.data.token
+      const role = response.data.role
       localStorage.setItem('token', token)
-      // Redirige al usuario a la página principal o al área protegida de la aplicación
-      navigate('/production-flow') // Asegúrate de que esta ruta coincida con la ruta de producción en tus rutas de React
+      localStorage.setItem('role', role)
+      navigate('/production-flow')
     } catch (err) {
       setError('Usuario o contraseña incorrectos')
     }
