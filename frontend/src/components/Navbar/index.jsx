@@ -11,10 +11,12 @@ const Navbar = () => {
   }
 
   return (
-    <nav>
+    <nav className={'navbar'}>
       <Link to='/'>Inicio</Link>
       {localStorage.getItem('token') ? (
-        <button onClick={handleLogout}>Cerrar sesión</button>
+        <Link to='/' onClick={handleLogout}>
+          Cerrar sesión
+        </Link>
       ) : (
         <>
           <Link to='/login'>Iniciar sesión</Link>

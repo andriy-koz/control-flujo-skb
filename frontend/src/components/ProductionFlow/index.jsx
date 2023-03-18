@@ -3,7 +3,7 @@ import './productionFlow.module.css'
 
 const ProductionFlow = () => {
   return (
-    <div>
+    <div className={'container'}>
       <h1>Página de seguimiento del flujo de producción</h1>
     </div>
   )

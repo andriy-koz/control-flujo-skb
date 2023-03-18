@@ -30,7 +30,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className={'container'}>
       <h1>Iniciar sesión</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -49,7 +49,9 @@ const Login = () => {
             onChange={e => setPassword(e.target.value)}
           />
         </div>
-        <button type='submit'>Iniciar sesión</button>
+        <button className={'button'} type='submit'>
+          Iniciar sesión
+        </button>
       </form>
       {error && <p>{error}</p>}
     </div>
