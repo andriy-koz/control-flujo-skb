@@ -98,3 +98,45 @@ h6 {
 .footer a:hover {
   text-decoration: underline;
 }
+
+/* Formularios */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 0;
+}
+
+.form label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--color-primario);
+  border-color: var(--color-primario);
+}
+
+.form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-primario);
+  color: ;
+}

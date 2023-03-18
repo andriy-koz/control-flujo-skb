@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <div className={'container'}>
       <h1>Iniciar sesión</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={'form'}>
         <div>
           <label>Usuario:</label>
           <input

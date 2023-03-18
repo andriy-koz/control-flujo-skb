@@ -14,9 +14,12 @@ const Navbar = () => {
     <nav className={'navbar'}>
       <Link to='/'>Inicio</Link>
       {localStorage.getItem('token') ? (
-        <Link to='/' onClick={handleLogout}>
-          Cerrar sesión
-        </Link>
+        <>
+          <Link to='/production-flow'>Seguimiento de producción</Link>
+          <Link to='/' onClick={handleLogout}>
+            Cerrar sesión
+          </Link>
+        </>
       ) : (
         <>
           <Link to='/login'>Iniciar sesión</Link>
