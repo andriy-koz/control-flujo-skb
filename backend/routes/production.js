@@ -10,14 +10,23 @@ router.post('/start-production', async (req, res) => {
       'SELECT id FROM my_schema.models WHERE name = $1',
       [model]
     )
+
+    if (!modelResult.rows.length) {
+      res.status(404).json({ error: 'Model not found.' })
+      return
+    }
+
     const modelId = modelResult.rows[0].id
 
-    await pool.query(
-      'INSERT INTO my_schema.production_orders (model_id, target_quantity) VALUES ($1, $2)',
+    const insertResult = await pool.query(
+      'INSERT INTO my_schema.production_orders (model_id, target_quantity) VALUES ($1, $2) RETURNING id',
       [modelId, targetQuantity]
     )
 
-    res.status(201).json({ message: 'Production started successfully.' })
+    const orderId = insertResult.rows[0].id
+    res
+      .status(201)
+      .json({ message: 'Production started successfully.', orderId })
   } catch (err) {
     console.error(err)
     res
@@ -57,10 +66,9 @@ router.get('/progress/:orderId', async (req, res) => {
 
   try {
     const progressResult = await pool.query(
-      'SELECT p.stage, SUM(p.quantity) as quantity FROM my_schema.production_progress p WHERE p.production_order_id = $1 GROUP BY p.stage',
+      'SELECT m.name AS model, o.target_quantity AS target_quantity FROM my_schema.production_orders o JOIN my_schema.models m ON o.model_id = m.id WHERE o.id = $1',
       [orderId]
     )
-
     res.status(200).json({ progress: progressResult.rows })
   } catch (err) {
     console.error(err)
