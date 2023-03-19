@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import ProductionProgress from '../ProductionProgress'
-import { createOrder } from '../../services/productionService'
+import UpdateProgressForm from './UpdateProgressForm'
+import { createOrder, getSumProgress } from '../../services/productionService'
 import './productionFlow.module.css'
+import axios from 'axios'
+const API_URL = process.env.REACT_APP_BACKEND_URL
 
 const ProductionFlow = () => {
   const [role, setRole] = useState(localStorage.getItem('role'))
@@ -9,6 +12,7 @@ const ProductionFlow = () => {
   const [model, setModel] = useState('')
   const [targetQuantity, setTargetQuantity] = useState('')
   const [newOrderId, setNewOrderId] = useState(null)
+  const [sumProgress, setSumProgress] = useState(0)
 
   useEffect(() => {
     const handleStorageChange = e => {
@@ -23,6 +27,45 @@ const ProductionFlow = () => {
       window.removeEventListener('storage', handleStorageChange)
     }
   }, [])
+
+  useEffect(() => {
+    if (
+      role === 'Mecanizado User' ||
+      role === 'Soldadura User' ||
+      role === 'Esmalteria User' ||
+      role === 'Montaje User'
+    ) {
+      fetchLatestOrderId()
+    }
+  }, [role])
+
+  useEffect(() => {
+    const fetchSumProgress = async () => {
+      try {
+        const sum = await getSumProgress(role.split(' ')[0].toLowerCase())
+        setSumProgress(sum)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    if (role !== 'SKB User') {
+      fetchSumProgress()
+    }
+  }, [role, sumProgress])
+
+  const fetchLatestOrderId = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/production/latest-order`)
+      setOrderId(response.data.orderId)
+    } catch (error) {
+      console.error('Error fetching the latest order ID:', error)
+    }
+  }
+
+  const handleUpdateProgress = newProgress => {
+    setSumProgress(newProgress)
+  }
 
   const handleOrderIdChange = e => {
     setOrderId(e.target.value)
@@ -80,13 +123,61 @@ const ProductionFlow = () => {
           </>
         )
       case 'Mecanizado User':
-        return <p>Contenido para el usuario de Mecanizado.</p>
+        return (
+          <>
+            <p>Contenido para el usuario de Mecanizado.</p>
+            <p>Equipos enviados: {sumProgress}</p>
+            {orderId && (
+              <UpdateProgressForm
+                orderId={orderId}
+                stage='mecanizado'
+                onUpdateProgress={handleUpdateProgress}
+              />
+            )}
+          </>
+        )
       case 'Soldadura User':
-        return <p>Contenido para el usuario de Soldadura.</p>
+        return (
+          <>
+            <p>Contenido para el usuario de Soldadura.</p>
+            <p>Equipos enviados: {sumProgress}</p>
+            {orderId && (
+              <UpdateProgressForm
+                orderId={orderId}
+                stage='soldadura'
+                onUpdateProgress={handleUpdateProgress}
+              />
+            )}
+          </>
+        )
       case 'Esmalteria User':
-        return <p>Contenido para el usuario de Esmalteria.</p>
+        return (
+          <>
+            <p>Contenido para el usuario de Esmalteria.</p>
+            <p>Equipos enviados: {sumProgress}</p>
+            {orderId && (
+              <UpdateProgressForm
+                orderId={orderId}
+                stage='esmalteria'
+                onUpdateProgress={handleUpdateProgress}
+              />
+            )}
+          </>
+        )
       case 'Montaje User':
-        return <p>Contenido para el usuario de Montaje.</p>
+        return (
+          <>
+            <p>Contenido para el usuario de Montaje.</p>
+            <p>Equipos enviados: {sumProgress}</p>
+            {orderId && (
+              <UpdateProgressForm
+                orderId={orderId}
+                stage='montaje'
+                onUpdateProgress={handleUpdateProgress}
+              />
+            )}
+          </>
+        )
       default:
         return <p>Contenido no disponible para el rol actual.</p>
     }

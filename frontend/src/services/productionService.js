@@ -33,3 +33,30 @@ export const createOrder = async (model, targetQuantity) => {
     console.error('Error al crear la orden:', error)
   }
 }
+
+export const updateProgress = async (orderId, stage, quantity) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/production/update-progress`,
+      {
+        orderId,
+        stage,
+        quantity,
+      }
+    )
+    return response.data.newProgress
+  } catch (err) {
+    throw new Error('An error occurred while updating production progress.')
+  }
+}
+
+export const getSumProgress = async stage => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/production/sum-progress/${stage}`
+    )
+    return response.data
+  } catch (err) {
+    throw new Error('An error occurred while fetching sum of progress.')
+  }
+}
