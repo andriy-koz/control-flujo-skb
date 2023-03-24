@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import { getProgress } from '../../services/productionService'
 
-const ProductionProgress = ({ orderId }) => {
-  const [progress, setProgress] = useState([])
+const ProductionProgress = () => {
+  const [orders, setOrders] = useState([])
 
   useEffect(() => {
     const fetchProgress = async () => {
-      const progressData = await getProgress(orderId)
-      setProgress(progressData)
+      const progressData = await getProgress()
+      setOrders(progressData)
     }
 
     fetchProgress()
-  }, [orderId])
+  }, [])
 
-  console.log(progress)
+  console.log(orders)
   return (
     <div>
-      <h2>Progreso de la orden: {orderId}</h2>
-      <table>
+      <h2>Ordenes generadas:</h2>
+      <table className={'table'}>
         <thead>
           <tr>
+            <th>Id</th>
             <th>Modelo</th>
             <th>Cantidad</th>
-            <th>Fecha de creación</th>
+            <th>Terminados</th>
           </tr>
         </thead>
         <tbody>
-          {progress.map(item => (
-            <tr key={item.model}>
-              <td>{item.model}</td>
-              <td>{item.target_quantity}</td>
+          {orders.map(order => (
+            <tr key={order.order_id}>
+              <td>{order.order_id}</td>
+              <td>{order.model_name}</td>
+              <td>{order.order_quantity}</td>
+              <td>{order.production_progress}</td>
             </tr>
           ))}
         </tbody>

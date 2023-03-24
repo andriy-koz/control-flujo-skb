@@ -22,6 +22,7 @@ h4,
 h5,
 h6 {
   font-weight: 500;
+  text-align: center;
 }
 
 /* Contenedor principal */
@@ -49,6 +50,7 @@ h6 {
   background-color: #fff;
   color: var(--color-primario);
   border-color: var(--color-terciario);
+  cursor: pointer;
 }
 
 /* Navbar */
@@ -104,7 +106,8 @@ h6 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .form label {
@@ -138,5 +141,47 @@ h6 {
   border: none;
   border-radius: 5px;
   background-color: var(--color-primario);
-  color: ;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-secundario);
+}
+
+.form button:hover {
+  background-color: var(--color-terciario);
+  color: var(--color-secundario);
+  cursor: pointer;
+}
+
+.form div {
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid var(--color-terciario);
+  padding: 10px;
+  text-align: center;
+}
+
+.table th {
+  background-color: var(--color-primario);
+  color: #fff;
+  font-weight: 500;
+}
+
+.table tbody tr:nth-child(2n) {
+  background-color: var(--color-secundario);
+}
+
+.divider {
+  background-color: var(--color-terciario);
+  height: 2px;
+  width: 300px;
+  margin: 0 auto;
 }

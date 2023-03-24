@@ -4,7 +4,7 @@ import './home.module.css'
 const Home = () => {
   return (
     <div className={'container'}>
-      <h1>Bienvenido a la aplicación de seguimiento del flujo de producción</h1>
+      <h1>Flujo de producción SKB</h1>
     </div>
   )
 }

@@ -123,4 +123,18 @@ router.get('/sum-progress/:stage', async (req, res) => {
   }
 })
 
+router.get('/get-orders', async (req, res) => {
+  try {
+    const ordersResult = await pool.query(
+      'SELECT po.id AS order_id, m.name AS model_name, po.target_quantity AS order_quantity, COALESCE(SUM(pp.quantity), 0) AS production_progress FROM my_schema.production_orders po JOIN my_schema.models m ON po.model_id = m.id LEFT JOIN my_schema.production_progress pp ON po.id = pp.production_order_id GROUP BY po.id, m.name, po.target_quantity ORDER BY po.id DESC;'
+    )
+    res.status(200).json({ orders: ordersResult.rows })
+  } catch (err) {
+    console.error(err)
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching production progress.' })
+  }
+})
+
 module.exports = router

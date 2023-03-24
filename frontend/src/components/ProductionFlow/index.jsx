@@ -67,10 +67,6 @@ const ProductionFlow = () => {
     setSumProgress(newProgress)
   }
 
-  const handleOrderIdChange = e => {
-    setOrderId(e.target.value)
-  }
-
   const handleModelChange = e => {
     setModel(e.target.value)
   }
@@ -92,8 +88,9 @@ const ProductionFlow = () => {
       case 'SKB User':
         return (
           <>
-            <p>Contenido para el usuario de SKB.</p>
-            <form onSubmit={handleSubmit}>
+            <div className={'divider'} />
+            <h2>Crear nueva orden:</h2>
+            <form onSubmit={handleSubmit} className={'form'}>
               <label htmlFor='model'>Modelo:</label>
               <input
                 type='text'
@@ -114,12 +111,8 @@ const ProductionFlow = () => {
               />
               <button type='submit'>Crear nueva orden</button>
             </form>
-            <input
-              type='number'
-              placeholder='Ingrese el ID de la orden'
-              onChange={handleOrderIdChange}
-            />
-            {orderId && <ProductionProgress orderId={orderId} />}
+            <div className={'divider'} style={{ marginTop: '30px' }} />
+            <ProductionProgress />
           </>
         )
       case 'Mecanizado User':
@@ -184,7 +177,7 @@ const ProductionFlow = () => {
   }
   return (
     <div className={'container'}>
-      <h1>Página de seguimiento del flujo de producción</h1>
+      <h1>Seguimiento de producción</h1>
       {renderContent()}
       {newOrderId && (
         <p>Orden creada con éxito. ID de la orden: {newOrderId}</p>

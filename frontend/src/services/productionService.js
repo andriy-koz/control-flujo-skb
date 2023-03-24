@@ -1,15 +1,13 @@
 import axios from 'axios'
 const API_URL = process.env.REACT_APP_BACKEND_URL // Reemplazar con la URL de tu API
 
-export const getProgress = async orderId => {
+export const getProgress = async () => {
   try {
-    const response = await fetch(
-      `${API_URL}/api/production/progress/${orderId}`
-    )
+    const response = await fetch(`${API_URL}/api/production/get-orders`)
     const data = await response.json()
 
     if (response.ok) {
-      return data.progress
+      return data.orders
     } else {
       throw new Error(data.error)
     }
