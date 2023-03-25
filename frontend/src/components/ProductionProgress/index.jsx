@@ -13,7 +13,6 @@ const ProductionProgress = () => {
     fetchProgress()
   }, [])
 
-  console.log(orders)
   return (
     <div>
       <h2>Ordenes generadas:</h2>

@@ -185,3 +185,7 @@ h6 {
   width: 300px;
   margin: 0 auto;
 }
+
+.span {
+  color: var(--color-primario);
+}

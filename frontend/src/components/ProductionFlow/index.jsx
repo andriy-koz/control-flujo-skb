@@ -4,6 +4,7 @@ import UpdateProgressForm from './UpdateProgressForm'
 import { createOrder, getSumProgress } from '../../services/productionService'
 import './productionFlow.module.css'
 import axios from 'axios'
+import StagesProgress from '../StagesProgress'
 const API_URL = process.env.REACT_APP_BACKEND_URL
 
 const ProductionFlow = () => {
@@ -112,14 +113,20 @@ const ProductionFlow = () => {
               <button type='submit'>Crear nueva orden</button>
             </form>
             <div className={'divider'} style={{ marginTop: '30px' }} />
+            <StagesProgress />
             <ProductionProgress />
           </>
         )
       case 'Mecanizado User':
         return (
           <>
-            <p>Contenido para el usuario de Mecanizado.</p>
-            <p>Equipos enviados: {sumProgress}</p>
+            <h2>MECANIZADO</h2>
+            <h3>Registrar progreso</h3>
+            <div className={'divider'} />
+            <h3>
+              Equipos enviados: <span className='span'>{sumProgress}</span>
+            </h3>
+            <div className={'divider'} style={{ marginBottom: '30px' }} />
             {orderId && (
               <UpdateProgressForm
                 orderId={orderId}
@@ -132,8 +139,13 @@ const ProductionFlow = () => {
       case 'Soldadura User':
         return (
           <>
-            <p>Contenido para el usuario de Soldadura.</p>
-            <p>Equipos enviados: {sumProgress}</p>
+            <h2>SOLDADURA</h2>
+            <h3>Registrar progreso</h3>
+            <div className={'divider'} />
+            <h3>
+              Equipos enviados: <span className='span'>{sumProgress}</span>
+            </h3>
+            <div className={'divider'} style={{ marginBottom: '30px' }} />
             {orderId && (
               <UpdateProgressForm
                 orderId={orderId}
@@ -146,8 +158,13 @@ const ProductionFlow = () => {
       case 'Esmalteria User':
         return (
           <>
-            <p>Contenido para el usuario de Esmalteria.</p>
-            <p>Equipos enviados: {sumProgress}</p>
+            <h2>ESMALTERIA</h2>
+            <h3>Registrar progreso</h3>
+            <div className={'divider'} />
+            <h3>
+              Equipos enviados: <span className='span'>{sumProgress}</span>
+            </h3>
+            <div className={'divider'} style={{ marginBottom: '30px' }} />
             {orderId && (
               <UpdateProgressForm
                 orderId={orderId}
@@ -160,8 +177,14 @@ const ProductionFlow = () => {
       case 'Montaje User':
         return (
           <>
-            <p>Contenido para el usuario de Montaje.</p>
-            <p>Equipos enviados: {sumProgress}</p>
+            <h2>MONTAJE</h2>
+            <h3>Registrar progreso</h3>
+            <div className={'divider'} />
+            <h3>Objetivo:</h3>
+            <h3>
+              Equipos terminados: <span className='span'>{sumProgress}</span>
+            </h3>
+            <div className={'divider'} style={{ marginBottom: '30px' }} />
             {orderId && (
               <UpdateProgressForm
                 orderId={orderId}

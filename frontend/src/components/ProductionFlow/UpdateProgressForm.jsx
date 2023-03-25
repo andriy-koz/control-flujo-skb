@@ -16,7 +16,7 @@ const UpdateProgressForm = ({ orderId, stage, onUpdateProgress }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={'form'}>
       <label htmlFor='quantity'>Cantidad:</label>
       <input
         type='number'

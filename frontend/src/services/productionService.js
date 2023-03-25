@@ -58,3 +58,14 @@ export const getSumProgress = async stage => {
     throw new Error('An error occurred while fetching sum of progress.')
   }
 }
+
+export const getSumOfEverySector = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/production/get-sum-of-every-sector`
+    )
+    return response.data
+  } catch (err) {
+    throw new Error('An error occurred while fetching get sum of every sector.')
+  }
+}
