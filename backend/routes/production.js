@@ -146,7 +146,7 @@ router.get('/get-orders', async (req, res) => {
 router.get('/get-sum-of-every-sector', async (req, res) => {
   try {
     const result = await pool.query(
-      'WITH latest_orders AS (SELECT po.model_id, MAX(po.created_at) as latest_created_at FROM my_schema.production_orders po GROUP BY po.model_id), joined_orders AS (SELECT ps.name AS stage, pp.quantity AS quantity FROM latest_orders lo JOIN my_schema.production_orders po ON lo.model_id = po.model_id AND lo.latest_created_at = po.created_at JOIN my_schema.production_progress pp ON pp.production_order_id = po.id JOIN my_schema.production_stages ps ON ps.id = pp.production_stage_id) SELECT stage, SUM(quantity) as total_equipment FROM joined_orders GROUP BY stage;'
+      'WITH latest_order AS (SELECT MAX(po.created_at) AS latest_created_at FROM my_schema.production_orders po), joined_order AS (SELECT pp.production_stage_id, ps.name AS stage, pp.quantity AS quantity FROM latest_order lo JOIN my_schema.production_orders po ON lo.latest_created_at = po.created_at JOIN my_schema.production_progress pp ON pp.production_order_id = po.id JOIN my_schema.production_stages ps ON ps.id = pp.production_stage_id) SELECT stage, SUM(quantity) as total_equipment FROM joined_order GROUP BY stage;'
     )
     res.status(200).json({ result: result.rows })
   } catch (err) {
